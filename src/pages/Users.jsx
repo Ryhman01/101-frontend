@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { CiSettings } from 'react-icons/ci';
+import { useNavigate } from 'react-router-dom';
 import TableClient from '../components/TableCllient';
 import TableUser from '../components/TableUser';
 
@@ -21,6 +22,8 @@ const Users = () => {
     const selectHandler = (e) => {
         setRole(addrType[e.target.value]);
     };
+
+    const navigate = useNavigate();
 
 
     const Register = async (e) => {
@@ -44,6 +47,7 @@ const Users = () => {
             setConfPassword('');
             setRole('Admin');
             setAddress('');
+            setMessage('');
             
         } catch (error) {
             if (error.response) {
@@ -52,41 +56,11 @@ const Users = () => {
         }
     };
 
-    // // set validation
-    // const [validation, setValidation] = useState([]);
-
-    // // set navigate
-    // const navigate = useNavigate();
-
-    // // set useEffect for disable access to login page from dashboard page
-    // useEffect(() => {
-    //   if(localStorage.getItem('token')){
-    //     navigate('/dashboard');
-    //   }
-    // }, []);
-
-    // // add user handler
-    // const addUserHandler = async (event) => {
-    //   event.preventDefault();
-
-    //   // set formdata
-    //   const formData = new FormData();
-    //   formData.append('username', username);
-    //   formData.append('fullname', fullname);
-    //   formData.append('password', password);
-    //   formData.append('address', address);
-    //   formData.append('role', role);
-    //   formData.append('picture', picture);
-
-    //   // send data to server
-    //   await axios.post('', formData)
-    //   .then(() => {
-    //     navigate('/login');
-    //   }).catch((error) => {
-    //     console.log(error.response.data);
-    //     setValidation(error.response.data);
-    //   })
-    // }
+    useEffect(()=>{
+        if(!localStorage.getItem('refreshToken')){
+            navigate('/');
+        }
+    },[])
 
     return (
         <main className='my-2 mt-20 mx-5'>
@@ -129,7 +103,7 @@ const Users = () => {
                     <h1 className='text-lg font-bold'>Add New User</h1>
                     <form onSubmit={Register}>
                         {message.length ? (
-                            <div className='alert alert-warning shadow-lg'>
+                            <div className='alert alert-warning shadow-lg mt-3'>
                                 <div>
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
