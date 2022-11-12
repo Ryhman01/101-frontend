@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
-  console.log(sidebar);
 
   return (
     <>

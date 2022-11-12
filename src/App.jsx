@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
+import DetailProjects from './pages/DetailProjects';
+import DetailUser from './pages/DetailUser';
 import ForgotPassword from './pages/ForgotPassword';
 import Login from './pages/Login';
 import Prices from './pages/Prices';
@@ -79,6 +81,28 @@ export default function App() {
                         <>
                             <Sidebar />
                             <Profile />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    exact
+                    path='/detail-project'
+                    element={
+                        <>
+                            <Sidebar />
+                            <DetailProjects />
+                            <Footer />
+                        </>
+                    }
+                />
+                <Route
+                    exact
+                    path='/detail-user/'
+                    element={
+                        <>
+                            <Sidebar />
+                            <DetailUser />
                             <Footer />
                         </>
                     }

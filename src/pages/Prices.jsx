@@ -1,17 +1,43 @@
-import React, { useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { CiSettings } from 'react-icons/ci';
-import { useNavigate } from 'react-router-dom';
 import TableClient from '../components/TableCllient';
 import TablePrice from '../components/TablePrice';
+import { useNavigate } from 'react-router-dom';
 
 const Prices = () => {
+	const [minPrice, setMinPrice] = useState('');
+	const [maxPrice, setMaxPrice] = useState('');
+	const [percentage, setPercentage] = useState('');
+
+	const newPrice = async (e) => {
+		e.preventDefault();
+		try {
+			if (confirm('You want to add this price?') == true) {
+				await axios.post('http://localhost:5000/prices', {
+					minPrice: minPrice,
+					maxPrice: maxPrice,
+					percentage: percentage,
+				});
+
+				setMinPrice('');
+				setMaxPrice('');
+				setPercentage('');
+				alert('Price has added!');
+				window.location.reload(false);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (!localStorage.getItem('refreshToken')) {
 			navigate('/');
 		}
-	}, []);
+	});
 
 	return (
 		<main className='my-2 mt-20 mx-5'>
@@ -46,7 +72,7 @@ const Prices = () => {
 						X
 					</label>
 					<h1 className='text-lg font-bold'>Add New Price</h1>
-					<form action=''>
+					<form onSubmit={newPrice}>
 						<div className='py-4'>
 							<p className='text-sm text-gray-400'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea iure rerum ipsa. Quasi ipsam labore, quibusdam cumque cupiditate dolores esse?</p>
 							<div className='mt-5'>
@@ -54,24 +80,54 @@ const Prices = () => {
 									<label htmlFor='new-min-price' className='text-sm font-medium text-gray-700'>
 										Min Price
 									</label>
-									<input type='text' name='new-min-price' id='new-min-price' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<input
+										onChange={(e) => setMinPrice(e.target.value)}
+										value={minPrice}
+										type='text'
+										name='new-min-price'
+										id='new-min-price'
+										placeholder='Type here . . .'
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 								<div className='my-2'>
 									<label htmlFor='new-max-price' className='text-sm font-medium text-gray-700'>
 										Max Price
 									</label>
-									<input type='text' name='new-max-price' id='new-max-price' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<input
+										onChange={(e) => setMaxPrice(e.target.value)}
+										value={maxPrice}
+										type='text'
+										name='new-max-price'
+										id='new-max-price'
+										placeholder='Type here . . .'
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 								<div className='my-2'>
 									<label htmlFor='new-percentage' className='text-sm font-medium text-gray-700'>
 										Percentage
 									</label>
-									<input type='text' name='new-percentage' id='new-percentage' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<input
+										onChange={(e) => setPercentage(e.target.value)}
+										value={percentage}
+										type='text'
+										name='new-percentage'
+										id='new-percentage'
+										placeholder='Type here . . .'
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 
 								<div className='flex justify-center items-center gap-5 mt-5'>
-									<button className='px-5 py-2 bg-blue-500 rounded-lg text-white font-medium text-sm'>Add Price</button>
-									<button type='reset' className='px-5 py-2 bg-gray-500 rounded-lg text-white font-medium text-sm'>
+									<button type='submit' className='px-5 py-2 bg-blue-500 rounded-lg text-white font-medium text-sm'>
+										Add Price
+									</button>
+									<button onClick={() => {
+										setMinPrice('');
+										setMaxPrice('');
+										setPercentage('');
+									}} type='reset' className='px-5 py-2 bg-gray-500 rounded-lg text-white font-medium text-sm'>
 										Reset Data
 									</button>
 								</div>

@@ -7,37 +7,25 @@ import ImageReact from '../assets/reactjs.png';
 import ImageTailwind from '../assets/tailwindcss.png';
 
 const Login = () => {
+
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [message, setMessage] = useState('');
-
 	const navigate = useNavigate();
 
-	const Auth = async (e) => {
+	const Login = async (e) => {
 		e.preventDefault();
 		try {
-			await axios
-				.post('http://localhost:5000/login', {
-					username: username,
-					password: password,
-				})
-				.then((response) => {
-					// console.log(response);
-					localStorage.setItem('refreshToken', response.data.refreshToken);
-					navigate('/dashboard');
-				});
+			const response = await axios.post('http://localhost:5000/login',{
+				username: username,
+				password: password
+			});
+			localStorage.setItem('refreshToken', response.data.refreshToken);
+			navigate('/dashboard');
 		} catch (error) {
-			if (error.response) {
-				setMessage(error.response.data.message);
-			}
+			if(error.response) setMessage(error.response)
 		}
-	};
-
-	useEffect(() => {
-		if(localStorage.getItem('refreshToken')){
-			navigate('/dashboard')
-		}
-	},[]);
+	}
 
 	return (
 		<section className='flex items-center justify-center'>
@@ -45,19 +33,8 @@ const Login = () => {
 				<div className='bg-white rounded-2xl p-5 w-full'>
 					<h1 className='text-3xl font-semibold'>Login</h1>
 					<p className='font-medium text-blue-500'>Lorem ipsum dolor sit amet.</p>
-					<form onSubmit={Auth} className='mt-10 flex flex-col gap-y-5'>
-						{message.length ? (
-							<div className='alert alert-warning shadow-lg'>
-								<div>
-									<svg xmlns='http://www.w3.org/2000/svg' className='stroke-current flex-shrink-0 h-6 w-6' fill='none' viewBox='0 0 24 24'>
-										<path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' />
-									</svg>
-									<span>{message}</span>
-								</div>
-							</div>
-						) : (
-							''
-						)}
+					<form onSubmit={Login} className='mt-10 flex flex-col gap-y-5'>
+						
 						<div className='flex flex-col'>
 							<label htmlFor=''>Username</label>
 							<input onChange={(e) => setUsername(e.target.value)} value={username} type='text' placeholder='Type here . . .' className='w-full py-2 px-4 border border-blue-500 text-sm rounded-full outline-none' />
