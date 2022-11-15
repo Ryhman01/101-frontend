@@ -70,7 +70,7 @@ const DetailProjects = () => {
 				<div className='flex  mb-2'>
 					<p className='italic font-regular w-48 text-2xl'>Deal Price</p>
 					<p className='mx-2 text-2xl'>:</p>
-					<p className='font-medium text-2xl'>Rp.{dealPrice}</p>
+					<p className='font-medium text-2xl'>{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(dealPrice)}</p>
 				</div>
 				<div className='flex  mb-2'>
 					<p className='italic font-regular w-48 text-2xl'>Project Duration</p>

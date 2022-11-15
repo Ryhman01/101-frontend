@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 import { BsSearch } from 'react-icons/bs';
 import { CiSettings } from 'react-icons/ci';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import TableProject from '../components/TableProject';
 const Projects = () => {
 	const [projectName, setProjectName] = useState('');
 	const [dealPrice, setDealPrice] = useState('');
+	const [test, setTest] = useState('');
 	const [worker, setWorker] = useState('');
 	const [duration, setDuration] = useState('');
 
@@ -21,7 +23,7 @@ const Projects = () => {
 					dealPrice: dealPrice,
 					worker: worker,
 					duration: duration,
-					status: "Not Started"
+					status: 'Not Started',
 				});
 
 				setProjectName('');
@@ -38,11 +40,11 @@ const Projects = () => {
 
 	const navigate = useNavigate();
 	useEffect(() => {
-		if(!localStorage.getItem('refreshToken')){
-			navigate('/')
+		if (!localStorage.getItem('refreshToken')) {
+			navigate('/');
 		}
-	})
-	
+	});
+
 	return (
 		<main className='my-2 mt-20 mx-5'>
 			<div className='flex items-center justify-between'>
@@ -64,7 +66,7 @@ const Projects = () => {
 					<input type='text' placeholder='Search...' className='w-full h-full outline-none font-light' />
 				</div>
 				<div className='grid grid-cols-1 gap-5'>
-						<TableProject />
+					<TableProject />
 				</div>
 			</div>
 			<input type='checkbox' id='add-new-project' className='modal-toggle' />
@@ -92,17 +94,21 @@ const Projects = () => {
 										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
 									/>
 								</div>
+								
 								<div className='my-2'>
 									<label htmlFor='new-project-price' className='text-sm font-medium text-gray-700'>
 										Deal Price
 									</label>
-									<input
-										onChange={(e) => setDealPrice(e.target.value)}
+									<CurrencyInput
 										value={dealPrice}
-										type='text'
+										onValueChange={(value) => setDealPrice(value)}
 										name='new-project-price'
 										id='new-project-price'
 										placeholder='Type here . . .'
+										intlConfig={{
+											locale: 'id-ID',
+											currency: 'IDR'
+										}}
 										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
 									/>
 								</div>
@@ -139,12 +145,15 @@ const Projects = () => {
 									<button type='submit' className='px-5 py-2 bg-blue-500 rounded-lg text-white font-medium text-sm'>
 										Add User
 									</button>
-									<button onClick={() => {
-										setProjectName('');
-										setDealPrice('');
-										setWorker('');
-										setDuration('');
-									}} type='reset' className='px-5 py-2 bg-gray-500 rounded-lg text-white font-medium text-sm'>
+									<button
+										onClick={() => {
+											setProjectName('');
+											setDealPrice('');
+											setWorker('');
+											setDuration('');
+										}}
+										type='reset'
+										className='px-5 py-2 bg-gray-500 rounded-lg text-white font-medium text-sm'>
 										Reset Data
 									</button>
 								</div>

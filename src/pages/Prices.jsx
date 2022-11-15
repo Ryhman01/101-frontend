@@ -56,13 +56,9 @@ const Prices = () => {
 					<BsSearch size={20} />
 					<input type='text' placeholder='Search...' className='w-full h-full outline-none font-light' />
 				</div>
-				<div className='grid grid-cols-1 md:grid-cols-5 gap-5'>
-					<div className='md:col-start-1 md:col-end-4'>
+				<div className='grid grid-cols-1'>
 						<TablePrice />
-					</div>
-					<div className='md:col-start-4 md:col-end-6'>
-						<TableClient />
-					</div>
+					
 				</div>
 			</div>
 			<input type='checkbox' id='add-new-price' className='modal-toggle' />

@@ -55,17 +55,17 @@ const TableProject = () => {
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{index + 1}.</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>PID-{project.id}</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.project_name}</td>
-								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>Rp.{project.deal_price}</td>
-								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>10%</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(project.deal_price)}</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.fee}%</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.duration} month</td>
-								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.worker}</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.worker} worker</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.status}</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center flex items-center justify-center gap-1'>
 									<Link to={'/detail-project'} state={{
 										id: project.id,
 										project_name: project.project_name,
 										deal_price: project.deal_price,
-										fee: 10,
+										fee: project.fee,
 										duration: project.duration,
 										worker: project.worker,
 										status: project.status

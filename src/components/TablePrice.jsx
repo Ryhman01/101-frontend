@@ -2,6 +2,7 @@ import { setId } from '@material-tailwind/react/components/Tabs/TabsContext';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 
 const TablePrice = () => {
 	const [prices, setPrices] = useState([]);
@@ -9,6 +10,7 @@ const TablePrice = () => {
 	const [minPrice, setMinPrice] = useState('');
 	const [maxPrice, setMaxPrice] = useState('');
 	const [percentage, setPercentage] = useState('');
+	console.log(minPrice);
 
 	const axiosJWT = axios.create();
 	axiosJWT.interceptors.request.use(
@@ -74,7 +76,7 @@ const TablePrice = () => {
 									<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{index + 1}.</td>
 									<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>PRID-{price.id}</td>
 									<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>
-										Rp.{price.min_price} - Rp.{price.max_price}
+									{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(price.min_price)} - {new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(price.max_price)}
 									</td>
 									<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{price.percentage}%</td>
 									<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center flex items-center justify-center gap-1'>
@@ -130,19 +132,50 @@ const TablePrice = () => {
 									<label htmlFor='new-min-price' className='text-sm font-medium text-gray-700'>
 										Min Price
 									</label>
-									<input onChange={e => setMinPrice(e.target.value)} value={minPrice} type='text' name='new-min-price' id='new-min-price' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<CurrencyInput
+										value={minPrice}
+										onValueChange={(value) => setMinPrice(value)}
+										name='new-min-price'
+										id='new-min-price'
+										placeholder='Type here . . .'
+										intlConfig={{
+											locale: 'id-ID',
+											style: 'currency',
+											currency: 'IDR'
+										}}
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 								<div className='my-2'>
 									<label htmlFor='new-max-price' className='text-sm font-medium text-gray-700'>
 										Max Price
 									</label>
-									<input onChange={e => setMaxPrice(e.target.value)} value={maxPrice} type='text' name='new-max-price' id='new-max-price' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<CurrencyInput
+										value={maxPrice}
+										onValueChange={(value) => setMaxPrice(value)}
+										name='new-max-price'
+										id='new-max-price'
+										placeholder='Type here . . .'
+										intlConfig={{
+											locale: 'id-ID',
+											style: 'currency',
+											currency: 'IDR'
+										}}
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 								<div className='my-2'>
 									<label htmlFor='new-percentage' className='text-sm font-medium text-gray-700'>
 										Percentage
 									</label>
-									<input onChange={e => setPercentage(e.target.value)} value={percentage} type='text' name='new-percentage' id='new-percentage' placeholder='Type here . . .' className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500' />
+									<CurrencyInput
+										value={percentage}
+										onValueChange={(value) => setPercentage(value)}
+										name='new-percentage'
+										id='new-percentage'
+										suffix='%'
+										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
+									/>
 								</div>
 
 								<div className='flex justify-center items-center gap-5 mt-5'>
