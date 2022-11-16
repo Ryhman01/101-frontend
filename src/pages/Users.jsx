@@ -12,7 +12,7 @@ const Users = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confPassword, setConfPassword] = useState('');
-	const [role, setRole] = useState('Admin');
+	const [role, setRole] = useState('');
 	const [address, setAddress] = useState('');
 
 	const newUser = async (e) => {
@@ -48,6 +48,7 @@ const Users = () => {
 		if (!localStorage.getItem('refreshToken')) {
 			navigate('/');
 		}
+		console.log(role);
 	});
 
 	return (
@@ -155,10 +156,11 @@ const Users = () => {
 									<label htmlFor='new-role' className='text-sm font-medium text-gray-700'>
 										Role
 									</label>
-									<select name='new-role' id='new-role' className='block select select-bordered outline-none w-full'>
-										<option value=''>Admin</option>
-										<option value=''>Project Manager</option>
-										<option value=''>Marketing Manager</option>
+									<select onChange={e => setRole(e.target.value)} name='new-role' id='new-role' className='block select select-bordered outline-none w-full'>
+										<option selected disabled defaultValue='None'>Choose role</option>
+										<option value='Admin'>Admin</option>
+										<option value='Project Manager'>Project Manager</option>
+										<option value='Marketing Manager'>Marketing Manager</option>
 									</select>
 								</div>
 

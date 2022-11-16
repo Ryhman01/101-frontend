@@ -5,6 +5,7 @@ import { CiSettings } from 'react-icons/ci';
 import TableClient from '../components/TableCllient';
 import TablePrice from '../components/TablePrice';
 import { useNavigate } from 'react-router-dom';
+import CurrencyInput from 'react-currency-input-field';
 
 const Prices = () => {
 	const [minPrice, setMinPrice] = useState('');
@@ -76,12 +77,16 @@ const Prices = () => {
 									<label htmlFor='new-min-price' className='text-sm font-medium text-gray-700'>
 										Min Price
 									</label>
-									<input
-										onChange={(e) => setMinPrice(e.target.value)}
+									<CurrencyInput
+										onValueChange={(value) => setMinPrice(value)}
 										value={minPrice}
-										type='text'
 										name='new-min-price'
 										id='new-min-price'
+										intlConfig={{
+											locale: 'id-ID',
+											style: 'currency',
+											currency: 'IDR'
+										}}
 										placeholder='Type here . . .'
 										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
 									/>
@@ -90,12 +95,16 @@ const Prices = () => {
 									<label htmlFor='new-max-price' className='text-sm font-medium text-gray-700'>
 										Max Price
 									</label>
-									<input
-										onChange={(e) => setMaxPrice(e.target.value)}
+									<CurrencyInput
+										onValueChange={(value) => setMaxPrice(value)}
 										value={maxPrice}
-										type='text'
 										name='new-max-price'
 										id='new-max-price'
+										intlConfig={{
+											locale: 'id-ID',
+											style: 'currency',
+											currency: 'IDR'
+										}}
 										placeholder='Type here . . .'
 										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
 									/>
@@ -104,12 +113,12 @@ const Prices = () => {
 									<label htmlFor='new-percentage' className='text-sm font-medium text-gray-700'>
 										Percentage
 									</label>
-									<input
-										onChange={(e) => setPercentage(e.target.value)}
+									<CurrencyInput
+										onValueChange={(value) => setPercentage(value)}
 										value={percentage}
-										type='text'
 										name='new-percentage'
 										id='new-percentage'
+										suffix='%'
 										placeholder='Type here . . .'
 										className='w-full h-full outline-none font-light flex items-center gap-3 border rounded-lg py-2 px-3 text-gray-500'
 									/>

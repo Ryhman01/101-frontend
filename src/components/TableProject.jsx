@@ -41,8 +41,11 @@ const TableProject = () => {
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>No.</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project ID</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project Name</th>
+							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project Type</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Deal Price</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project Fee(%)</th>
+							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project Fee(Rp.)</th>
+							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Project Tax(11%)</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Duration</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Worker</th>
 							<th className='px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-center'>Status</th>
@@ -55,8 +58,11 @@ const TableProject = () => {
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{index + 1}.</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>PID-{project.id}</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.project_name}</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.project_type}</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(project.deal_price)}</td>
-								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.fee}%</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.fee_percentage}%</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(project.fee_nominal)}</td>
+								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{new Intl.NumberFormat("id-ID", {style: "currency", currency: "IDR"}).format(project.tax)}</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.duration} month</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.worker} worker</td>
 								<td className='border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-center'>{project.status}</td>
@@ -64,8 +70,14 @@ const TableProject = () => {
 									<Link to={'/detail-project'} state={{
 										id: project.id,
 										project_name: project.project_name,
+										project_type: project.project_type,
 										deal_price: project.deal_price,
-										fee: project.fee,
+										tax: project.tax,
+										fee_percentage: project.fee_percentage,
+										fee_nominal: project.fee_nominal,
+										net_profit: project.net_profit,
+										cost_per_month: project.cost_per_month,
+										cost_per_worker: project.cost_per_worker,
 										duration: project.duration,
 										worker: project.worker,
 										status: project.status
